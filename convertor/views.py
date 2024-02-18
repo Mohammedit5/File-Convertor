@@ -51,7 +51,6 @@ def jpgToPdf(request):
 
 def pdftojpg(request):
     # pdf2image
-
     if request.method == "POST":
         # creating random folder name for each user
         res = ''.join(random.choice(string.ascii_lowercase) for x in range(10))
@@ -82,41 +81,19 @@ def pdftojpg(request):
 
 def pdftableextract(request):
 
-
-
-
     if request.method == "POST":
-        # res = ''.join(random.choice(string.ascii_lowercase) for x in range(10))
-        # path_to_upload = os.path.join('./convertor/static/uploaded_files/pdftodocx', str(res))
-        # path_to_sample = os.path.join('./convertor/static/uploaded_files/sample.docx')
-        # os.makedirs(path_to_upload)
+
         file = request.FILES['file']
         # myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(file.name, file)
         uploaded_file_url = fs.url(filename)
-        print(filename)
-        path_to_upload = os.path.join('./convertor/uploaded_files/pdftodocx', filename)
-        os.makedirs(path_to_upload)
-
-        # path = default_storage.save('download.pdf', ContentFile(file.read()))
-        # with open(file, "wb+") as destination:
-        #     for chunk in file.chunks():
-        #         destination.write(chunk)
-        # print(files)
-        cv = Converter('uploaded_files/'+filename)
-        cv.convert(path_to_upload)      # all pages by default
+        cv = Converter(file)
+        cv.convert('./convertor/static/uploaded_files/pdftodocx/random.docx')      # all pages by default
         cv.close()
         return render(request, 'pdftodocx.html', {'url': str(uploaded_file_url)})
         # user file files 
     return render(request, 'pdftodocx.html')
-    # pdf_file = '/convertor/uploaded_files/sample.pdf'
-    # docx_file = 'path/to/sample.docx'
-    # # convert pdf to docx
-    # cv = Converter(files)
-    # cv.convert(docx_file)      # all pages by default
-    # cv.close()
-  
 
 
 
