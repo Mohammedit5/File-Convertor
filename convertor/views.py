@@ -45,6 +45,7 @@ def jpgToPdf(request):
         with open(path_to_upload + "/sample.pdf", "wb") as f:
             f.write(img2pdf.convert(files_list, layout_fun=layout_fun))
         os.rename(path_to_upload + "/sample.pdf", path_to_upload + "/sample.txt")
+        print("jpg to pdf url",res)
         return render(request, 'jpgtopdf.html', {'url': str(res)})
     return render(request, 'jpgtopdf.html')
 
@@ -83,15 +84,21 @@ def pdftableextract(request):
 
     if request.method == "POST":
 
+
         file = request.FILES['file']
         # myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(file.name, file)
+        res = ''.join(random.choice(string.ascii_lowercase) for x in range(10))
+        # path_to_upload = os.path.join('./convertor/static/uploaded_files/pdftodocx/', str(res))
+        # os.makedirs(path_to_upload)
         uploaded_file_url = fs.url(filename)
         cv = Converter(file)
-        cv.convert('./convertor/static/uploaded_files/pdftodocx/random.docx')      # all pages by default
+        docx_file_path = './convertor/static/uploaded_files/pdftodocx/'+str(filename.split('.')[0])+'.docx'
+        cv.convert(  docx_file_path)      # all pages by default
         cv.close()
-        return render(request, 'pdftodocx.html', {'url': str(uploaded_file_url)})
+        # print("path is \n"+docx_file_path)
+        return render(request, 'pdftodocx.html', {'url': str(filename.split('.')[0])+'.docx'})
         # user file files 
     return render(request, 'pdftodocx.html')
 
