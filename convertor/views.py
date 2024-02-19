@@ -97,10 +97,11 @@ def pdftableextract(request):
         docx_file_path = './convertor/static/uploaded_files/pdftodocx/'+str(filename.split('.')[0])+'.docx'
         cv.convert(  docx_file_path)      # all pages by default
         cv.close()
+        print('uploaded')
         # print("path is \n"+docx_file_path)
         return render(request, 'pdftodocx.html', {'url': str(filename.split('.')[0])+'.docx'})
         # user file files 
-    return render(request, 'pdftodocx.html')
+    return render(request, 'pdftodocx.html',{'title':'Heart'})
 
 
 

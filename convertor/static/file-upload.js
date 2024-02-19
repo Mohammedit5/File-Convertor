@@ -5,6 +5,7 @@
 function handleFileSelect(event) {
     //Check File API support
     if (window.File && window.FileList && window.FileReader) {
+    console.log("gfgfg")
 
         var files = event.target.files; //FileList object
         var output = document.getElementById("result");
@@ -57,5 +58,32 @@ function handleFileSelect(event) {
         console.log("Your browser does not support File API");
     }
 }
+function handlePdfFileSelect(event) {
 
+    if (window.File && window.FileList && window.FileReader) {
+    console.log("hghg");
+    console.log(event.target.files);
+    var output = document.getElementById("result");
+var object = document.getElementById('object');
+var anchor = document.getElementById('file-tag');
+const blob = new Blob([event.target.files[0]], {type: event.target.files[0]?.type});
+anchor.href = URL.createObjectURL(blob);
+object.data = URL.createObjectURL(blob);
+                output.classList.remove('quote-imgs-thumbs--hidden');
+
+}
+else {
+        console.log("Your browser does not support File API");
+    }
+
+}
+if(document.getElementById('files') != null){
+console.log(document.getElementById('files'));
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+}
+if(document.getElementById('files_docx') != null){
+console.log("in files docx");
+document.getElementById('files_docx').addEventListener('change', handlePdfFileSelect, false);
+
+}
