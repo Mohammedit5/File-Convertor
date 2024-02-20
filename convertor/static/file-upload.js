@@ -70,6 +70,8 @@ const blob = new Blob([event.target.files[0]], {type: event.target.files[0]?.typ
 anchor.href = URL.createObjectURL(blob);
 object.data = URL.createObjectURL(blob);
                 output.classList.remove('quote-imgs-thumbs--hidden');
+                document.getElementById('uploadbutton').disabled = false;
+            document.getElementById('removequeue').classList.remove('disabled')
 
 }
 else {

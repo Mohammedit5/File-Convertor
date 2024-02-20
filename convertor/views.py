@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import img2pdf
 from pdf2docx import Converter
-
+import shutil
 import pandas as pd
 import string
 import random
@@ -81,21 +81,23 @@ def pdftojpg(request):
 
 
 def pdftableextract(request):
+    print("accessing method")
 
     if request.method == "POST":
-
-
         file = request.FILES['file']
         # myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(file.name, file)
-        res = ''.join(random.choice(string.ascii_lowercase) for x in range(10))
-        # path_to_upload = os.path.join('./convertor/static/uploaded_files/pdftodocx/', str(res))
-        # os.makedirs(path_to_upload)
-        uploaded_file_url = fs.url(filename)
-        cv = Converter(file)
+        # check if ./uploaded_files exists or not 
+        uploaded_files_path = './uploaded_files/'
+        static_files = './convertor/static/uploaded_files/pdftodocx/'
+        if not os.path.exists(uploaded_files_path):
+            os.makedirs(uploaded_files_path)
+        if not os.path.exists(static_files):
+            os.makedirs(static_files)
+        cv = Converter('./uploaded_files/'+file.name)
         docx_file_path = './convertor/static/uploaded_files/pdftodocx/'+str(filename.split('.')[0])+'.docx'
-        cv.convert(  docx_file_path)      # all pages by default
+        cv.convert(docx_file_path)      # all pages by default
         cv.close()
         print('uploaded')
         # print("path is \n"+docx_file_path)
