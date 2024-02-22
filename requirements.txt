@@ -22,4 +22,4 @@ pdf2image == 1.12.1
 
 
 
-gunicorn == 21.2.0
+gunicorn == 19.7.1
