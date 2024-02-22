@@ -44,6 +44,9 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -126,3 +129,15 @@ os.path.join(BASE_DIR, "static"),
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'uploaded_files')
 MEDIA_URL='/uploaded_files/'
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage' 
+
+
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
