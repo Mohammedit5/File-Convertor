@@ -25,7 +25,7 @@ SECRET_KEY = '_rtb9=2ce7w3ovlkdjc8v)d7vzl$ij6kowrq)t#ylfc0v_10h8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", ".railway.app"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -129,9 +129,6 @@ os.path.join(BASE_DIR, "static"),
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'uploaded_files')
 MEDIA_URL='/uploaded_files/'
-
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
-
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage' 
